@@ -35,7 +35,7 @@ class Clock extends Component {
             year: "numeric"
           })}
         </h3>
-        
+          
       </div>
     );
   }
