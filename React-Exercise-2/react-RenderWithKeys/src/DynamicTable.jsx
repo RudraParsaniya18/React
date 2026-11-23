@@ -65,6 +65,36 @@ class DynamicTable extends Component {
 
     }
 
+
+    updateUser() {
+
+        const { firstName, lastName, users, editIndex } = this.state;
+
+        // Check if both fields have values
+        if (!firstName.trim() || !lastName.trim()) {
+            alert("Please enter both First Name and Last Name");
+            return;
+        }
+
+        // Copy existing users array
+        const updatedUsers = [...users];
+
+        // Update user at the selected index
+        updatedUsers[editIndex] = {
+            firstName: firstName,
+            lastName: lastName
+        };
+
+        this.setState({
+            users: updatedUsers,
+            firstName: "",
+            lastName: "",
+            editIndex: null
+        });
+
+    }
+
+
     render() {
         return (
             <div>
