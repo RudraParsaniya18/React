@@ -53,6 +53,18 @@ class DynamicTable extends Component {
     }
 
 
+    editUser(index) {
+
+        const selectedUser = this.state.users[index];
+
+        this.setState({
+            firstName: selectedUser.firstName,
+            lastName: selectedUser.lastName,
+            editIndex: index
+        });
+
+    }
+
     render() {
         return (
             <div>
@@ -72,8 +84,9 @@ class DynamicTable extends Component {
                     onChange={(e) => this.setState({ lastName: e.target.value })}
                 />
 
-                <button onClick={() => this.addUser()}>Add</button>
-
+                <button onClick={() => this.state.editIndex === null ? this.addUser() : this.updateUser()}>
+                    {this.state.editIndex === null ? "Add" : "Update"}
+                </button>
 
                 <table border="1" cellPadding="10">
                     <thead>
@@ -90,7 +103,7 @@ class DynamicTable extends Component {
                                 <td>{user.firstName}</td>
                                 <td>{user.lastName}</td>
                                 <td>
-                                    <button>Edit</button>
+                                    <button onClick={() => this.editUser(index)}>Edit</button>
                                     <button onClick={() => this.deleteUser(index)}>Delete</button>
                                 </td>
                             </tr>
