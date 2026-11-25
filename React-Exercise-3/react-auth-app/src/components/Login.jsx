@@ -1,21 +1,41 @@
 
 import { useState } from "react";
 
-function Login() {
+function Login({ onLogin }) {
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
     function handleLogin(e) {
+
         e.preventDefault();
 
-        if (email === "" || password === "") {
+        if (!email || !password) {
             alert("Please fill all fields");
             return;
         }
 
-        console.log("Email:", email);
-        console.log("Password:", password);
+        // Get registered users
+        let users = JSON.parse(localStorage.getItem("users")) || [];
+
+        // Find matching user
+        let loggedUser = users.find(
+            (user) =>
+                user.email === email &&
+                user.password === password
+        );
+
+        if (loggedUser) {
+
+            alert("Login successful!");
+
+            onLogin(loggedUser);
+
+        } else {
+
+            alert("Invalid email or password");
+
+        }
     }
 
     return (

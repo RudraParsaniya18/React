@@ -3,40 +3,61 @@ import { useState } from "react";
 
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import MyAccount from "./components/MyAccount";
 
 function App() {
 
-  const [page, setPage] = useState("login");
+    const [page, setPage] = useState("login");
+    const [loggedUser, setLoggedUser] = useState(null);
 
-  return (
-    <div>
+    function handleLogin(user) {
+        setLoggedUser(user);
+        setPage("account");
+    }
 
-      {page === "login" ? (
-        <Login />
-      ) : (
-        <Signup />
-      )}
+    function handleLogout() {
+        setLoggedUser(null);
+        setPage("login");
+    }
 
-      <br />
+    return (
+        <div>
 
-      {page === "login" ? (
-        <p>
-          Don't have an account?
-          <button onClick={() => setPage("signup")}>
-            Signup
-          </button>
-        </p>
-      ) : (
-        <p>
-          Already have an account?
-          <button onClick={() => setPage("login")}>
-            Login
-          </button>
-        </p>
-      )}
+            {page === "login" && (
+                <Login onLogin={handleLogin} />
+            )}
 
-    </div>
-  );
+            {page === "signup" && (
+                <Signup />
+            )}
+
+            {page === "account" && loggedUser && (
+                <MyAccount
+                    user={loggedUser}
+                    onLogout={handleLogout}
+                />
+            )}
+
+            {page === "login" && (
+                <p>
+                    Don't have an account?
+                    <button onClick={() => setPage("signup")}>
+                        Signup
+                    </button>
+                </p>
+            )}
+
+            {page === "signup" && (
+                <p>
+                    Already have an account?
+                    <button onClick={() => setPage("login")}>
+                        Login
+                    </button>
+                </p>
+            )}
+
+        </div>
+    );
 }
 
 export default App;
