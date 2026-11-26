@@ -8,7 +8,7 @@ function App() {
   const [forecast, setForecast] = useState([]);
   const [error, setError] = useState("");
 
-  const API_KEY = "YOUR_API_KEY";
+  const API_KEY = "3d818a3bf4fc8feaa045ecffabef6d63";
 
   const getWeather = async () => {
 
